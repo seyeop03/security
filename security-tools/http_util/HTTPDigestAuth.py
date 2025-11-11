@@ -1,4 +1,3 @@
-
 import requests
 from requests.auth import HTTPDigestAuth
 from urllib.parse import urlparse, urljoin
@@ -96,11 +95,10 @@ def make_request(method,
 def make_response_param(user, pw, method, target_path_or_url,
                         base_host=None, headers=None, params=None,
                         data=None, json_body=None, verify=DEFAULT_VERIFY, timeout=DEFAULT_TIMEOUT):
-    """
-
-      content = make_response_param("admin","Acs123!!","GET",
-                    "/stw-cgi/accesscontrol.cgi?msubmenu=hostcommunication&action=view&SunapiSeqId=124",
-                    base_host="192.168.1.160", 
+    """ 사용 예시
+      content = make_response_param("admin","p@ssw0rd","GET",
+                    "/stw-cgi/accesscontrol.cgi?menu=hostcommunication&action=view",
+                    base_host="192.168.1.10",
                     headers=..., params=...)
     """
     return make_request(method=method,
@@ -114,9 +112,9 @@ def make_response_param(user, pw, method, target_path_or_url,
 # 사용 예시
 # ---------------------------
 if __name__ == "__main__":
-    TARGET_IP = "192.168.1.160"   # 예시
-    USER_ID = "admin"
-    USER_PW = "Acs123!!"
+    TARGET_IP = "192.168.1.10"   # 대상 서버 IP
+    USER_ID = "admin" # 임의의 사용자 아이디
+    USER_PW = "p@ssw0rd" # 임의의 사용자 비밀번호
 
     default_headers = {
         "Accept": "application/json",
@@ -131,7 +129,6 @@ if __name__ == "__main__":
             if not url:
                 continue
             try:
-                print(url)
                 response = make_response_param(USER_ID, USER_PW,
                                 "GET",
                                 url,
@@ -161,7 +158,7 @@ if __name__ == "__main__":
                  
     resp = make_response_param(USER_ID, USER_PW,
                                 "GET",
-                                "http://192.168.1.160//stw-cgi/network.cgi?msubmenu=bonjour&action=set&Enable=True&FriendlyName=WISENET-NHP-P200-000918E2797D%3bid&SunapiSeqId=58",
+                                "http://192.168.1.10/stw-cgi/network.cgi?msubmenu=bonjour&action=set&Enable=True",
                                 base_host=TARGET_IP,
                                 headers=default_headers,
                                 params=None,
